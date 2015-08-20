@@ -34,6 +34,7 @@ require 'spec_helper'
       it { should have_content('Sign in') }
       it { should have_title('Sign in') }
 
+
       describe "after visiting another page" do
         before { click_link "Home" }
         it { should_not have_selector('div.alert.alert-error') }
@@ -45,6 +46,10 @@ require 'spec_helper'
 
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+
+      it { should_not have_link('Profile',     href: user_path(user)) }        #В качестве упражнения
+      it { should_not have_link('Settings',    href: edit_user_path(user)) }   #В качестве упражнения
+      it { should_not have_link('Sign out',    href: signout_path) }           #В качестве упражнения
 
       describe "when attempting to visit a protected page" do
         before do
